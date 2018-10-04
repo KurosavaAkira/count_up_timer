@@ -1,0 +1,42 @@
+{
+  "name": "webpack-workshop-2018",
+  "version": "1.0.0",
+  "description": "Learning resources for the webpack academy workshop series for 2018",
+  "main": "index.js",
+  "scripts": {
+    "webpack-dev-server": "webpack-dev-server",
+    "webpack": "webpack",
+    "prod": "yarn webpack -- --env.mode production",
+    "dev": "yarn webpack-dev-server -- --env.mode development --hot"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheLarkInn/webpack-workshop-2018.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TheLarkInn/webpack-workshop-2018/issues"
+  },
+  "homepage": "https://github.com/TheLarkInn/webpack-workshop-2018#readme",
+  "devDependencies": {
+    "http-server": "^0.11.1"
+  },
+  "dependencies": {
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^1.0.0",
+    "file-loader": "^1.1.11",
+    "fork-ts-checker-webpack-plugin": "^0.4.2",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.4.1",
+    "style-loader": "^0.21.0",
+    "ts-loader": "^4.4.2",
+    "url-loader": "^1.0.1",
+    "webpack": "^4.15.1",
+    "webpack-cli": "^3.0.8",
+    "webpack-dev-server": "^3.1.4",
+    "webpack-merge": "^4.1.3"
+  }
+}
