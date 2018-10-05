@@ -1,4 +1,4 @@
-import "./index.css";
+import "./index.sass";
 import createButton from "./button";
 import colorElement from "./colorElement";
 
