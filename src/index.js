@@ -1,6 +1,6 @@
 import "./index.sass";
-import createButton from "./button";
-import colorElement from "./colorElement";
+import createButton from "./components/button";
+import colorElement from "./components/colorElement";
 
 const div = document.createElement("div");
 div.innerText = "Hello World";
