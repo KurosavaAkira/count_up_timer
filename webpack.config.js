@@ -10,7 +10,12 @@ module.exports = env => {
   return webpackMerge(
     {
       mode: env.mode,
-      plugins: [new webpack.ProgressPlugin(), new HtmlWebpackPlugin()]
+      plugins: [new webpack.ProgressPlugin(),
+                new HtmlWebpackPlugin({
+                  title: 'Count up timer',
+                  template: 'src/index.html'
+                })
+               ]
     },
     modeConfig(env)
   );
