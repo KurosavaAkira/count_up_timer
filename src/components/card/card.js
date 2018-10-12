@@ -1,7 +1,22 @@
-const card = (text) => {
- // const div = document.createElement("div");
-//  div.insertAdjacentHTML('beforeend', '<div class="favorite-city">' + text + '"></div>');
-  return console.log(text);
-};
+import './card.sass';
 
-export default card;
+class Card {
+  constructor() {
+    this.title = 'Empty';
+    this.body = '<div class="card">asd</div>'
+  }
+  
+  save() {
+    console.log('save');
+  }
+
+  create() {
+    console.log('create');
+    const addCard = document.getElementById('addCard');
+    addCard.insertAdjacentHTML('beforebegin', '<div class="card">No title</div>');
+  }
+}
+
+const card = new Card;
+
+export default card.create;

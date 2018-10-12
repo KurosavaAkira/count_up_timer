@@ -1,11 +1,11 @@
-import "./addCard.sass";
-import card from "../card/card";
+import './addCard.sass';
+import card from '../card/card';
 
 const addCard = buttonInnertext => {
   const button = document.createElement('button');
   button.id = 'addCard';
   button.innerText = buttonInnertext;
-  button.addEventListener("click", e => card('Card test'));
+  button.addEventListener('click', e => card('Card test'));
   return document.getElementById('container').appendChild(button);
 };
 

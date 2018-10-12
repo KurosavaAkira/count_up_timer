@@ -1,4 +1,4 @@
-import "./index.sass";
-import addCard from "./components/addCard/addCard";
+import './index.sass';
+import addCard from './components/addCard/addCard';
 
 addCard('+');
