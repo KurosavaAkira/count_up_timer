@@ -2,8 +2,13 @@ import './card.sass';
 
 class Card {
   constructor() {
-    this.title = 'Empty';
-    this.body = '<div class="card">asd</div>'
+    this.title = 'No title';
+    this.body = '<div class="card">\
+                 <input type="text" autocomplete="off" placeholder="No title">\
+                 <div class="card-date"></div>\
+                 <div class="card-timer"></div>\
+                 <button>Save</button>\
+                 </div>';
   }
   
   save() {
@@ -11,12 +16,19 @@ class Card {
   }
 
   create() {
-    console.log('create');
     const addCard = document.getElementById('addCard');
-    addCard.insertAdjacentHTML('beforebegin', '<div class="card">No title</div>');
+    const first_card = document.getElementsByClassName('card')[0];
+    if (first_card != undefined) first_card.insertAdjacentHTML('beforebegin', this.body);
+    else addCard.insertAdjacentHTML('beforebegin', this.body);
+    this.focusInput();
+  }
+
+  focusInput() {
+    const input = document.getElementsByTagName('input')[0];
+    input.focus();
   }
 }
 
 const card = new Card;
 
-export default card.create;
+export default card;

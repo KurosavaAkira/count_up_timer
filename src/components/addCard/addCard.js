@@ -5,7 +5,7 @@ const addCard = buttonInnertext => {
   const button = document.createElement('button');
   button.id = 'addCard';
   button.innerText = buttonInnertext;
-  button.addEventListener('click', e => card('Card test'));
+  button.addEventListener('click', e => card.create());
   return document.getElementById('container').appendChild(button);
 };
 
