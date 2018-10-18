@@ -2,6 +2,8 @@ import './card.sass';
 import '../datePicker/datepickk.css';
 import Datepickk from '../datePicker/Datepickk';
 
+let intervals = [];
+
 class Card {
   constructor(id, title, date = Card.todayDate()) {
     this.id = id;
@@ -57,25 +59,37 @@ class Card {
     }
 
   timer() {
-    const new_card_date = document.getElementsByClassName('card-date')[0].value;
-    console.log(new_card_date);
-    console.log(new Date(new_card_date));
-    let countDownDate = new Date("Oct 17, 2018 00:00:00").getTime();
-    // Update the count down every 1 second
-    let x = setInterval(() => {
-      // Get todays date and time
-      let now = new Date().getTime();
-      // Find the distance between now and the count down date
-      let distance = countDownDate - now;
-      // Time calculations for days, hours, minutes and seconds
-      let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      // Display the result in the element with id="demo"
-      const card_timer = document.getElementsByClassName('card-timer')[0];
-      card_timer.innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-    }, 1000);      
+    intervals.forEach(clearInterval);
+    const card_dates = document.getElementsByClassName('card-date').length;
+    for(let i = 0; i < card_dates; i++) {
+      const new_card_date = document.getElementsByClassName('card-date')[i].value;
+      console.log(new_card_date);
+      console.log(new Date(new_card_date));
+      let countDownDate = new Date(new_card_date).getTime();
+      // Update the count down every 1 second
+      let x = setInterval(() => {
+        // Get todays date and time
+        let now = new Date().getTime();
+        // Find the distance between now and the count down date
+        let distance
+        let setMinus = '';
+        if (now < countDownDate) distance = countDownDate - now;
+        else {
+          distance = now - countDownDate;
+          setMinus = '-';
+        }
+        // Time calculations for days, hours, minutes and seconds
+        let days = Math.floor(distance / (60*60*1000*24)*1);
+        let hours = Math.floor((distance % (60*60*1000*24))/(60*60*1000)*1);
+        let minutes = Math.floor(((distance % (60*60*1000*24))%(60*60*1000))/(60*1000)*1);
+        let seconds = Math.floor((((distance % (60*60*1000*24))%(60*60*1000))%(60*1000))/1000*1);
+        // Display the result in the element with id="demo"
+        const card_timer = document.getElementsByClassName('card-timer')[i];
+        card_timer.innerHTML = setMinus + days + 'd ' + setMinus + hours + 'h ' + setMinus + minutes + 'm ' + setMinus + seconds + 's ';
+      }, 1000); 
+      intervals.push(x);
+      console.log(x);
+    }     
   }
 
   focusInput() {
