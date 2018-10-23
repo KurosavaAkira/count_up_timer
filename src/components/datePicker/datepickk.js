@@ -1307,3 +1307,7 @@ exports.default = Datepickk;
 /***/ })
 /******/ ])["default"];
 });
+
+function updateTimer() {
+	console.log('update timer');
+} 
