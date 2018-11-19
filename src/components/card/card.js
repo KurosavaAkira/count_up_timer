@@ -12,6 +12,7 @@ class Card {
     this.title = title;
     this.date = date;
     this.time = time;
+    this.saved = false;
     this.body = '<div class="card" id="' + this.id + '">\
                  <input type="text" autocomplete="off" placeholder="No title" value="' + this.title + '">\
                  <input class="card-date" value="' + this.date + '">\
@@ -33,19 +34,35 @@ class Card {
 
   save(card) {
     let id = card.target.parentNode.parentNode.id;
-    console.log('save ' + id);
+    //Applying "display: none" to .save-cancel
+    card.target.parentNode.classList.add('saved');
+    cards[id - 1].saved = true;
   }
 
   cancel(card) {
     let id = card.target.parentNode.parentNode.id;
-    console.log('cancel ' + id);
+    card.target.parentNode.parentNode.remove();
+    cards.splice(id - 1,1);
+    console.log(cards);
+    clearInterval(intervals[id-1]);
+    intervals.splice(id - 1, 1);
+    console.log(intervals);
   }
 
   create() {
     const addCard = document.getElementById('addCard');
     const first_card = document.getElementsByClassName('card')[0];
     const new_card = new Card(this.getId(), '');
-    if (first_card != undefined) first_card.insertAdjacentHTML('beforebegin', new_card.body);
+    cards.push(new_card);
+    this.cardNotSaved();
+    if (first_card != undefined) {
+      first_card.insertAdjacentHTML('beforebegin', new_card.body);
+      let id = cards.length - 1; //last but one card in array
+      if(cards[id].saved == false) {
+        document.getElementsByClassName('save-cancel')[1].classList.add('saved'); //last but one class in DOM
+        cards[id - 1].saved = true;
+      }
+    } 
     else addCard.insertAdjacentHTML('beforebegin', new_card.body);
     const new_card_date = document.getElementsByTagName('input')[1];
     new_card_date.addEventListener('click', e => this.datepick(e));
@@ -53,10 +70,18 @@ class Card {
     new_card_save.addEventListener('click', e => this.save(e));
     const new_card_cancel = document.getElementsByTagName('button')[1];
     new_card_cancel.addEventListener('click', e => this.cancel(e));
-    cards.push(new_card);
     this.createTimer();
     this.focusInput();
     console.log(cards);
+  }
+
+  cardNotSaved() {
+    let id = cards.length - 1; //last but one card in array
+    if(cards[id].saved == false) {
+      //document.getElementsByClassName('save-cancel')[1].classList.add('saved'); //last but one class in DOM
+      //cards[id - 1].saved = true;
+      console.log('Not saved');
+    }
   }
 
   getId() {
@@ -75,12 +100,17 @@ class Card {
       datepicker.onSelect = function(checked){
         //date_input.target.value = this.toLocaleDateString();
         date_input.target.setAttribute('value', this.toLocaleDateString());
-        let id = date_input.target.parentElement.id-1;
+        let id = date_input.target.parentElement.id - 1;
         cards[id].date = date_input.target.value;
+        //Updating time in cards array
         let new_date = new Date(cards[id].date);
         let old_time = new Date(cards[id].time);
         new_date.setHours(old_time.getHours(), old_time.getMinutes(), old_time.getSeconds());
         cards[id].time = new_date;
+        //Adding save button to card
+        date_input.target.nextElementSibling.nextElementSibling.classList.remove('saved');
+        cards[id].saved = false;
+        console.log(cards);
       };
       datepicker.onClose = function(){
         datepicker.closeOnSelect = false;
@@ -89,24 +119,17 @@ class Card {
       datepicker.show();
     }
 
-  addCurrentTimeToNewDate(date) {
-    let time_now = new Date();
-    return date.setHours(time_now.getHours(), time_now.getMinutes(), time_now.getSeconds());
-  }
-
   createTimer() {
-    intervals.forEach(clearInterval);
-   /* const card_dates = document.getElementsByClassName('card-date').length;
-    for(let i = 0; i < card_dates; i++) {
-      const new_card_date = document.getElementsByClassName('card-date')[i].value;
-      let new_timer = timer(new_card_date, i);
-      intervals.push(new_timer);
-    } */
-    for(let i = 0; i < cards.length; i++) {
+    //intervals.forEach(clearInterval);
+   /* for(let i = 0; i < cards.length; i++) {
       let time = cards[i].time;
       let new_timer = timer(time, i);
       intervals.push(new_timer);
-    }
+    }*/
+    let id = cards.length - 1;
+    let time = cards[id].time;
+    let new_timer = timer(time, id);
+    intervals.push(new_timer);
   }
 
   updateTimer() {

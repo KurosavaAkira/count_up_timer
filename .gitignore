@@ -58,5 +58,5 @@ typings/
 .env
 
 # webpack default dist folder
-dist/
+# dist/
 
