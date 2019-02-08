@@ -1,6 +1,6 @@
 # Timer
 
-### [Timer - Demo](https://kurosavaakira.github.io/timer/dist/)
+### [Timer - Demo](https://kaizengami.github.io/timer/dist/)
 
 ## Project Setup
 
